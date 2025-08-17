@@ -131,3 +131,50 @@ void answerCustomerEnquiries() {
 void logout() {
     cout << "[Admin] Logged out successfully.\n";
 }
+
+// User Login Process (ULP) 
+void userLoginProcess() {
+    cout << "\n User Login Process (ULP) \n";
+
+    vector<User> users;
+    loadUsers(users);
+
+    string username;
+    cout << "Enter Username: ";
+    cin >> username;
+
+    bool found = false;
+    for (auto &u : users) {
+        if (u.username == username) {
+            found = true;
+
+            cout << "Forgot Password? (y/n): ";
+            char c; cin >> c;
+
+            if (c == 'y' || c == 'Y') {
+                // Forgot password → set new one → then check login
+                requestNewPassword(username);
+                if (checkPasswordCorrect(username)) {
+                    userActivities(username);
+                } else {
+                    cout << "Wrong password. Try login again.\n";
+                    userLoginProcess();
+                }
+            } else {
+                // Normal login → just check password
+                if (checkPasswordCorrect(username)) {
+                    userActivities(username);
+                } else {
+                    cout << "Wrong password. Try login again.\n";
+                    userLoginProcess();
+                }
+            }
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "User not found. Register first.\n";
+        newUser();
+    }
+}
