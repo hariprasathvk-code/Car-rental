@@ -68,7 +68,6 @@ void initialization() {
 
 // Process
 void process(bool isAdmin) {
-    cout << "\n Process (P)\n";
     if (isAdmin) adminLoginProcess();
     else userLoginProcess();
 }
@@ -134,7 +133,7 @@ void logout() {
 
 // User Login Process (ULP) 
 void userLoginProcess() {
-    cout << "\n User Login Process (ULP) \n";
+    cout << "\nUser Login Process (ULP) \n";
 
     vector<User> users;
     loadUsers(users);
@@ -178,6 +177,7 @@ void userLoginProcess() {
         newUser();
     }
 }
+
 void newUser() {
     string username, password;
     cout << "\n New User Registration \n";
