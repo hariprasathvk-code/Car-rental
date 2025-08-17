@@ -38,3 +38,30 @@ void userActivities(string username);
 // CSV helpers
 bool loadUsers(vector<User>& users);
 void saveUser(const User& user);
+
+//  MAIN 
+int main() {
+    initialization();
+    termination();
+    return 0;
+}
+
+//  Initialization 
+void initialization() {
+    cout << "\n=== Initialization ===\n";
+    cout << "Are you Admin? (y/n): ";
+    char choice; cin >> choice;
+
+    if (choice == 'y' || choice == 'Y') {
+        process(true);   // ALP
+    } else {
+        cout << "Are you a registered user? (y/n): ";
+        cin >> choice;
+        if (choice == 'y' || choice == 'Y') {
+            process(false);  // ULP
+        } else {
+            newUser();       
+            return;          
+        }
+    }
+}
