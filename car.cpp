@@ -19,3 +19,22 @@ const string ADMIN_PASSWORD = "admin123";
 void initialization();
 void process(bool isAdmin);
 void termination();
+
+// Admin flow
+void adminLoginProcess();
+bool validateAdminPassword();
+void chooseAdminApplication();
+void updateCarLibrary();
+void answerCustomerEnquiries();
+void logout();
+
+// User flow
+void userLoginProcess();
+void newUser();
+bool checkPasswordCorrect(string username);
+void requestNewPassword(string username);
+void userActivities(string username);
+
+// CSV helpers
+bool loadUsers(vector<User>& users);
+void saveUser(const User& user);
