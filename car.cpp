@@ -65,3 +65,69 @@ void initialization() {
         }
     }
 }
+
+// Process
+void process(bool isAdmin) {
+    cout << "\n=== Process (P) ===\n";
+    if (isAdmin) adminLoginProcess();
+    else userLoginProcess();
+}
+
+//  Admin Login Process (ALP) 
+void adminLoginProcess() {
+    cout << "\n=== Admin Login Process (ALP) ===\n";
+
+    if (!validateAdminPassword()) {
+        cout << "Retrying Admin Login...\n";
+        adminLoginProcess();   
+        return;
+    }
+
+    chooseAdminApplication();
+}
+
+bool validateAdminPassword() {
+    string uname, pass;
+    cout << "Enter Admin Username: ";
+    cin >> uname;
+    cout << "Enter Admin Password: ";
+    cin >> pass;
+
+    if (uname == ADMIN_USERNAME && pass == ADMIN_PASSWORD) {
+        cout << "Admin authenticated successfully!\n";
+        return true;
+    }
+    cout << "Incorrect Admin Credentials!\n";
+    return false;
+}
+
+void chooseAdminApplication() {
+    int choice;
+    do {
+        cout << "\n Admin portal\n";
+        cout << "1. Update Car Library\n";
+        cout << "2. Answer Customer Enquiries\n";
+        cout << "3. Logout\n";
+        cout << "Choose: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: updateCarLibrary(); break;
+            case 2: answerCustomerEnquiries(); break;
+            case 3: logout(); return;
+            default: cout << "Invalid choice!\n";
+        }
+    } while (choice != 3);
+}
+
+void updateCarLibrary() {
+    cout << "[Admin] Car Library has been updated successfully!\n";
+}
+
+void answerCustomerEnquiries() {
+    cout << "[Admin] Customer enquiries have been responded successfully!\n";
+}
+
+void logout() {
+    cout << "[Admin] Logged out successfully.\n";
+}
