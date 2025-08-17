@@ -178,3 +178,104 @@ void userLoginProcess() {
         newUser();
     }
 }
+void newUser() {
+    string username, password;
+    cout << "\n New User Registration \n";
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+    saveUser({username, password});
+    cout << "User registered successfully!\n";
+
+    // After registration, go to user activities
+    userActivities(username);
+}
+
+bool checkPasswordCorrect(string username) {
+    vector<User> users;
+    loadUsers(users);
+
+    string password;
+    cout << "Enter Password: ";
+    cin >> password;
+
+    for (auto &u : users) {
+        if (u.username == username && u.password == password) {
+            cout << "Login successful!\n";
+            return true;
+        }
+    }
+    return false;
+}
+
+void requestNewPassword(string username) {
+    vector<User> users;
+    loadUsers(users);
+
+    string newPass;
+    cout << "Enter new password for " << username << ": ";
+    cin >> newPass;
+
+    for (auto &u : users) {
+        if (u.username == username) {
+            u.password = newPass;
+        }
+    }
+
+    // Rewrite DB
+    ofstream file(USER_DB);
+    for (auto &u : users) {
+        file << u.username << "," << u.password << "\n";
+    }
+    file.close();
+    cout << "Password updated successfully!\n";
+}
+
+void userActivities(string username) {
+    int choice;
+    do {
+        cout << "\n User  (" << username << ") ---\n";
+        cout << "1. Look for Vehicle\n";
+        cout << "2. Make Payment\n";
+        cout << "3. Exit\n";
+        cout << "Choose: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: cout << "[User] Vehicle search completed.\n"; break;
+            case 2: cout << "[User] Payment processed successfully.\n"; break;
+            case 3: cout << "[User] Returning to main flow...\n"; break;
+            default: cout << "Invalid choice!\n";
+        }
+    } while (choice != 3);
+}
+
+// Termination
+void termination() {
+    cout << "\n=== Termination ===\nReturning from Admin/User end.\n";
+}
+
+// CSV Helpers
+bool loadUsers(vector<User>& users) {
+    ifstream file(USER_DB);
+    if (!file.is_open()) return false;
+
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string uname, pass;
+        getline(ss, uname, ',');
+        getline(ss, pass, ',');
+        if (!uname.empty() && !pass.empty())
+            users.push_back({uname, pass});
+    }
+    file.close();
+    return true;
+}
+
+void saveUser(const User& user) {
+    ofstream file(USER_DB, ios::app);
+    file << user.username << "," << user.password << "\n";
+    file.close();
+}
