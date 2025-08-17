@@ -48,7 +48,7 @@ int main() {
 
 //  Initialization 
 void initialization() {
-    cout << "\n=== Initialization ===\n";
+    cout << "\n Welcome \n";
     cout << "Are you Admin? (y/n): ";
     char choice; cin >> choice;
 
@@ -68,17 +68,17 @@ void initialization() {
 
 // Process
 void process(bool isAdmin) {
-    cout << "\n=== Process (P) ===\n";
+    cout << "\n Process (P)\n";
     if (isAdmin) adminLoginProcess();
     else userLoginProcess();
 }
 
 //  Admin Login Process (ALP) 
 void adminLoginProcess() {
-    cout << "\n=== Admin Login Process (ALP) ===\n";
+    cout << "\n Admin Login Process (ALP) \n";
 
     if (!validateAdminPassword()) {
-        cout << "Retrying Admin Login...\n";
+        cout << "Retrying Admin Login\n";
         adminLoginProcess();   
         return;
     }
