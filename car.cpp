@@ -253,7 +253,7 @@ void userActivities(string username) {
 
 // Termination
 void termination() {
-    cout << "\n=== Termination ===\nReturning from Admin/User end.\n";
+    cout << "\n  Termination \nReturning from Admin/User end.\n";
 }
 
 // CSV Helpers
